@@ -19,22 +19,26 @@ module MigrationsSpecSetup
     Migrations.enable_i18n
     Migrations.apply_global_config
 
-    require "rspec-multi-mock"
-
     # Shared support (matchers, helpers, shared examples) lives in the core gem;
     # also load the calling gem's own support, if any.
     load_support(CORE_SPEC_DIR)
     load_support(spec_dir) unless spec_dir == CORE_SPEC_DIR
 
     RSpec.configure do |config|
-      config.mock_with MultiMock::Adapter.for(:rspec, :mocha)
+      # Discourse's spec support mocks with mocha, so a Rails boot needs both.
+      if ENV["MIGRATIONS_RAILS"]
+        require "rspec-multi-mock"
+        config.mock_with MultiMock::Adapter.for(:rspec, :mocha)
+      else
+        config.mock_with :rspec
+      end
 
       # Partial stubs on real objects must name a method that actually exists,
       # just like `instance_double`/`class_double` already enforce. Set on the
-      # global rspec-mocks config because `mock_with` receives the MultiMock
-      # adapter here, not the `:rspec` adapter that normally exposes this
-      # setting. The gem suites are mocha-free; Discourse core's own suite
-      # never loads this file.
+      # global rspec-mocks config because `mock_with` may receive the MultiMock
+      # adapter, not the `:rspec` adapter that normally exposes this setting.
+      # The gem suites are mocha-free; Discourse core's own suite never loads
+      # this file.
       RSpec::Mocks.configuration.verify_partial_doubles = true
 
       # Specs tagged `:rails` need a booted Rails environment (live DB

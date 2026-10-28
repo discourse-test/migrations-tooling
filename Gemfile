@@ -2,6 +2,11 @@
 
 source "https://rubygems.org"
 
+gem "migrations-core", path: "gems/core"
+gem "migrations-tooling", path: "gems/tooling"
+gem "migrations-converters", path: "gems/converters"
+gem "migrations-importer", path: "gems/importer"
+
 group :test do
   gem "rspec"
 end
