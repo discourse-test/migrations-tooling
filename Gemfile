@@ -7,6 +7,10 @@ gem "migrations-tooling", path: "gems/tooling"
 gem "migrations-converters", path: "gems/converters"
 gem "migrations-importer", path: "gems/importer"
 
+source "https://rubygems.pkg.github.com/discourse-test" do
+  gem "mini_progress"
+end
+
 group :test do
   gem "rspec"
 end

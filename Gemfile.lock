@@ -24,8 +24,8 @@ PATH
       i18n
       json
       lru_redux
+      mini_progress
       samovar
-      unicode-display_width
       zeitwerk
 
 PATH
@@ -252,6 +252,14 @@ GEM
       descendants_tracker (~> 0.0, >= 0.0.3)
     zeitwerk (2.8.3)
 
+GEM
+  remote: https://rubygems.pkg.github.com/discourse-test/
+  specs:
+    mini_progress (0.1.0)
+      activesupport (>= 7.1)
+      i18n (>= 1.8)
+      unicode-display_width (>= 3.0)
+
 PLATFORMS
   aarch64-linux
   ruby
@@ -263,6 +271,7 @@ DEPENDENCIES
   migrations-core!
   migrations-importer!
   migrations-tooling!
+  mini_progress!
   rspec
   rubocop-discourse-base
   rubocop-rspec
@@ -319,6 +328,7 @@ CHECKSUMS
   migrations-core (0.0.1)
   migrations-importer (0.0.1)
   migrations-tooling (0.0.1)
+  mini_progress (0.1.0) sha256=f80b9fe92601d21b9c743ce237747b04ce6e67ca691a6d655cb9e622ea437ea0
   mini_racer (0.22.2) sha256=6a5b0d1e8bfe296ce9005d7d2bdbed1709a79d071a04bcd0e6699d899bf23cca
   minitest (6.0.6) sha256=153ea36d1d987a62942382b61075745042a2b3123b1cd48f4c3675af9cc7d6f1
   ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912

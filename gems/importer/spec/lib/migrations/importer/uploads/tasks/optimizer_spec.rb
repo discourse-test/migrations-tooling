@@ -5,7 +5,7 @@ RSpec.describe Migrations::Importer::Uploads::Tasks::Optimizer, :rails do
     described_class.new({ files_db:, intermediate_db: }, {}).tap { |task| task.reporter = reporter }
   end
 
-  let(:reporter) { instance_double(Migrations::Reporting::Reporter::StepHandle, notice: nil) }
+  let(:reporter) { instance_double(MiniProgress::Reporter::StepHandle, notice: nil) }
   let(:intermediate_db) { @intermediate_db }
   let(:files_db) { @files_db }
 

@@ -23,7 +23,7 @@ RSpec.describe Migrations::Importer::Uploads::Tasks::Fixer do
   end
   let(:notices) { [] }
   let(:reporter) do
-    instance_double(Migrations::Reporting::Reporter::StepHandle).tap do |step|
+    instance_double(MiniProgress::Reporter::StepHandle).tap do |step|
       allow(step).to receive(:notice) { |message| notices << message }
     end
   end

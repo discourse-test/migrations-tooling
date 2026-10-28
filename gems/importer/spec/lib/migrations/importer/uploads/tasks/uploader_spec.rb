@@ -16,7 +16,7 @@ RSpec.describe Migrations::Importer::Uploads::Tasks::Uploader do
     end
   end
 
-  let(:reporter) { instance_double(Migrations::Reporting::Reporter::StepHandle, notice: nil) }
+  let(:reporter) { instance_double(MiniProgress::Reporter::StepHandle, notice: nil) }
 
   let(:status) { described_class::Status }
   let(:skip_reason) { described_class::SkipReason }

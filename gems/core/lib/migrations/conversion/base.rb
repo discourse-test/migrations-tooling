@@ -22,7 +22,7 @@ module Migrations
         # themselves are built and sized lazily. Each step's source is opened
         # and counted in its own fork when it runs.
         step_classes = filter_steps(steps, only_steps, skip_steps)
-        @reporter = Reporting::Factory.build(titles: step_classes.map(&:title))
+        @reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
         StepScheduler.new(
           step_classes:,

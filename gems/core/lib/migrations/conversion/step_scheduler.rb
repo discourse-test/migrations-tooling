@@ -17,7 +17,7 @@ module Migrations
       FINISHED_STATES = %i[done failed skipped].freeze
 
       # @param step_classes [Array<Class<Step>>] every step in the run, in any order
-      # @param reporter [Reporting::Reporter] shared by all steps to report progress
+      # @param reporter [MiniProgress::Reporter] shared by all steps to report progress
       # @param step_factory [#call] builds a step from its class, `->(step_class) { step }`
       # @param shard_manager [ShardManager] hands out the per-worker shard databases
       # @param writer [Database::Connection] the run DB connection the consolidator

@@ -74,7 +74,7 @@ module Migrations
         # Titles are handed to the reporter up front so it can reserve its title
         # column before any step runs.
         titles = classes.map(&:title)
-        @reporter = Reporting::Factory.build(titles:)
+        @reporter = MiniProgress::Factory.build(titles:)
 
         classes.each_with_index do |step_class, index|
           step_report = @reporter.start_step(titles[index])

@@ -56,7 +56,7 @@ module Migrations
       # @param step_class [Class<Step>] the step this coordinator runs
       # @param step_factory [#call] builds a step from its class, `->(step_class) { step }`;
       #   called inside each worker so the source connection opens there
-      # @param reporter [Reporting::Reporter] receives the step's progress and notices
+      # @param reporter [MiniProgress::Reporter] receives the step's progress and notices
       # @param fork_mutex [Mutex] serialises forking across the run's coordinator threads
       # @param scheduler [StepScheduler] told about a step-level failure for the run summary
       # @param shard_manager [ShardManager] hands out and discards the per-worker shard DBs

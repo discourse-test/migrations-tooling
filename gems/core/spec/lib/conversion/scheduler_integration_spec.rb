@@ -58,7 +58,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
   # can assert the reducer's warning count reached the reporter. Both live
   # reporters route progress the same way, so recording the shared call is enough.
   let(:recording_reporter_class) do
-    Class.new(Migrations::Reporting::Reporter) do
+    Class.new(MiniProgress::Reporter) do
       attr_reader :warnings_by_title, :errors_by_title
 
       def initialize
@@ -148,7 +148,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
     )
 
     step_classes = [TempIntegrationSteps::Topics, TempIntegrationSteps::Users]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
     expect do
       Migrations::Conversion::StepScheduler.new(
@@ -221,7 +221,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
     )
 
     step_classes = [TempIntegrationSteps::Topics]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
     allow(Migrations::Conversion::ChunkQueue).to receive(:filled).and_call_original
 
     Migrations::Conversion::StepScheduler.new(
@@ -294,7 +294,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
     )
 
     step_classes = [TempIntegrationSteps::Topics]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
     Migrations::Conversion::StepScheduler.new(
       step_classes:,
@@ -351,7 +351,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
     )
 
     step_classes = [TempIntegrationSteps::Topics]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
     Migrations::Conversion::StepScheduler.new(
       step_classes:,
@@ -417,7 +417,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
     )
 
     step_classes = [TempIntegrationSteps::Topics]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
     allow(Migrations::ForkManager).to receive(:fork).and_call_original
 
@@ -488,7 +488,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
     )
 
     step_classes = [TempIntegrationSteps::Notes, TempIntegrationSteps::Users]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
     run =
       lambda do
@@ -564,7 +564,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
     )
 
     step_classes = [TempIntegrationSteps::Crashing, TempIntegrationSteps::Users]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
     run =
       lambda do
@@ -597,7 +597,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
   # with a plain, raising `INSERT`.
   def run_keyed_step
     step_classes = [TempIntegrationSteps::Keyed]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
     Migrations::Conversion::StepScheduler.new(
       step_classes:,
       budget: 2,
@@ -835,7 +835,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
     )
 
     step_classes = [TempIntegrationSteps::WithResult, TempIntegrationSteps::Empty]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
     Migrations::Conversion::StepScheduler.new(
       step_classes:,
@@ -885,7 +885,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
     )
 
     step_classes = [TempIntegrationSteps::Topics]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
     Migrations::Conversion::StepScheduler.new(
       step_classes:,
@@ -1025,7 +1025,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
       end
 
     step_classes = [TempIntegrationSteps::First, TempIntegrationSteps::Second]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
     Migrations::Conversion::StepScheduler.new(
       step_classes:,
@@ -1102,7 +1102,7 @@ RSpec.describe Migrations::Conversion::StepScheduler, :integration do
       end
 
     step_classes = [TempIntegrationSteps::First, TempIntegrationSteps::Zebra]
-    reporter = Migrations::Reporting::Factory.build(titles: step_classes.map(&:title))
+    reporter = MiniProgress::Factory.build(titles: step_classes.map(&:title))
 
     run =
       lambda do

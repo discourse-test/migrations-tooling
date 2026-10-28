@@ -8,7 +8,7 @@ module Migrations
       Enums = Database::IntermediateDB::Enums
 
       # Set by the executor before `execute` runs. Steps report progress and
-      # notices through it; see `Migrations::Reporting::Reporter`.
+      # notices through it; see `MiniProgress::Reporter`.
       attr_accessor :reporter
 
       class << self

@@ -34,9 +34,7 @@ RSpec.describe Migrations::Conversion::Base do
       end
 
       reporter = nil
-      allow(Migrations::Reporting::Factory).to receive(
-        :build,
-      ).and_wrap_original do |original, **kwargs|
+      allow(MiniProgress::Factory).to receive(:build).and_wrap_original do |original, **kwargs|
         reporter = original.call(**kwargs)
         allow(reporter).to receive(:close).and_call_original
         reporter
@@ -44,7 +42,7 @@ RSpec.describe Migrations::Conversion::Base do
 
       converter.run(skip_steps: ["users"], max_parallel_steps: 3)
 
-      expect(Migrations::Reporting::Factory).to have_received(:build).once
+      expect(MiniProgress::Factory).to have_received(:build).once
       expect(scheduler).to have_received(:run).once
       expect(reporter).to have_received(:close).once
 

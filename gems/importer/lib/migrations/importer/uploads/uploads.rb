@@ -14,7 +14,7 @@ module Migrations
 
         def perform!
           tasks = build_tasks
-          reporter = Reporting::Factory.build(titles: tasks.map(&:title))
+          reporter = MiniProgress::Factory.build(titles: tasks.map(&:title))
 
           interrupted = false
           begin

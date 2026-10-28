@@ -2,6 +2,7 @@
 
 require "active_support"
 require "active_support/core_ext"
+require "mini_progress"
 require "zeitwerk"
 
 module Migrations

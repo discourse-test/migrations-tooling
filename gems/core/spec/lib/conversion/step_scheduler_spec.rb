@@ -78,7 +78,7 @@ RSpec.describe Migrations::Conversion::StepScheduler do
   end
 
   def build_scheduler(step_classes, budget: 4, max_parallel_steps: nil, config: {})
-    reporter = instance_double(Migrations::Reporting::Reporter)
+    reporter = instance_double(MiniProgress::Reporter)
     allow(reporter).to receive(:finalizing).and_yield
     allow(reporter).to receive(:report_summary)
 
