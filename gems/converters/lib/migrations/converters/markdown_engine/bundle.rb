@@ -97,6 +97,8 @@ module Migrations
         # rename, so a crashed build cannot leave a truncated cache another run
         # trusts.
         def self.build_and_write(root, cache_file)
+          # A fresh process, so nothing has set the root yet.
+          Migrations.host_app_root = root
           # discourse-emojis decides whether to load its railtie by checking for
           # `Rails`, so it must load before the stand-in exists.
           require "discourse_emojis"

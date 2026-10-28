@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Migrations::Converters::Discourse::RawExtractor do
+RSpec.describe Migrations::Converters::Discourse::RawExtractor, :discourse do
   include_context "with raw extractor"
 
   # What may trail a route without being part of it: the `/` a link generator

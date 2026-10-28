@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Migrations::Converters::MarkdownEngine::Context do
+RSpec.describe Migrations::Converters::MarkdownEngine::Context, :discourse do
   subject(:context) { described_class.new(bundle:, config:) }
 
   let(:bundle) { Migrations::Converters::MarkdownEngine::Bundle.load_or_build }

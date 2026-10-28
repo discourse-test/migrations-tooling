@@ -3,7 +3,7 @@
 require "open3"
 require "tmpdir"
 
-RSpec.describe Migrations::Converters::MarkdownEngine::Bundle do
+RSpec.describe Migrations::Converters::MarkdownEngine::Bundle, :discourse do
   subject(:bundle) { described_class.load_or_build }
 
   let(:names) { bundle.entries.map(&:first) }
@@ -122,6 +122,7 @@ RSpec.describe Migrations::Converters::MarkdownEngine::Bundle do
     # working context.
     program = <<~RUBY
       require "migrations-converters"
+      Migrations.host_app_root = ARGV[0]
 
       bundle = Migrations::Converters::MarkdownEngine::Bundle.load_or_build
       raise "parent booted V8" if AssetProcessor.booted?
@@ -144,13 +145,8 @@ RSpec.describe Migrations::Converters::MarkdownEngine::Bundle do
       puts "worker-scan-ok"
     RUBY
 
-    stdout, stderr, status =
-      Open3.capture3(
-        RbConfig.ruby,
-        "-e",
-        program,
-        chdir: Migrations::Converters::MarkdownEngine.discourse_root,
-      )
+    root = Migrations::Converters::MarkdownEngine.discourse_root
+    stdout, stderr, status = Open3.capture3(RbConfig.ruby, "-e", program, root, chdir: root)
 
     expect(status.success?).to be(true), stderr
     expect(stdout).to include("worker-scan-ok")

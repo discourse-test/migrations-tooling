@@ -13,7 +13,7 @@ module Migrations
     # built from a bundle and a {MarkdownEngine::Config} of source-site inputs.
     module MarkdownEngine
       def self.discourse_root
-        Migrations.host_app_root
+        Migrations.host_app_root!
       end
     end
   end

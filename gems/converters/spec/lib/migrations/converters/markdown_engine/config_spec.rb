@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Migrations::Converters::MarkdownEngine::Config do
+RSpec.describe Migrations::Converters::MarkdownEngine::Config, :discourse do
   subject(:config) { described_class.new }
 
   describe "default settings" do

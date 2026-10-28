@@ -16,11 +16,12 @@ module Migrations
       @converters_path ||= File.join(__dir__, "converters")
     end
 
-    # Where private (closed-source) converters live in the host application.
+    # Where private (closed-source) converters live: `private/converters` in
+    # the plugin that ships this gem.
     def self.private_converters_path
       @private_converters_path ||=
         ENV["MIGRATIONS_PRIVATE_CONVERTERS_PATH"].presence ||
-          File.join(Migrations.host_app_root, "migrations", "private", "converters")
+          File.expand_path("../../private/converters", root_path)
     end
 
     def self.all
@@ -73,7 +74,6 @@ module Migrations
           loader.log! if ENV["DEBUG"]
           loader.inflector.inflect("db" => "DB", "id" => "ID", "cli" => "CLI")
           loader.push_dir(converters_path, namespace: Converters)
-          loader.ignore(File.join(converters_path, "register.rb"))
 
           # Each converter directory collapses all of its subdirectories into a
           # single namespace, so that e.g. `discourse/steps/users.rb` defines

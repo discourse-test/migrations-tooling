@@ -4,6 +4,8 @@ require "fileutils"
 require "tempfile"
 require "tmpdir"
 
+require_relative "../../../disco/environment"
+
 # Shared bootstrap for the four migration gems' spec suites. Each gem's
 # spec_helper delegates here so the Rails boot, i18n, mocking, and support
 # wiring live in one place.
@@ -13,9 +15,11 @@ module MigrationsSpecSetup
   # @param gem [String] the gem entrypoint to require (e.g. "migrations-core")
   # @param spec_dir [String] the calling gem's spec directory (__dir__)
   def self.call(gem:, spec_dir:)
-    boot_rails(spec_dir) if ENV["MIGRATIONS_RAILS"]
+    discourse_root = MigrationsTooling.discourse_root
+    boot_rails(discourse_root) if ENV["MIGRATIONS_RAILS"]
 
     require gem
+    Migrations.host_app_root = discourse_root
     Migrations.enable_i18n
     Migrations.apply_global_config
 
@@ -45,6 +49,10 @@ module MigrationsSpecSetup
       # introspection, plugin manifests). They run in the Rails integration job,
       # not the isolated gem suite.
       config.filter_run_excluding(:rails) unless ENV["MIGRATIONS_RAILS"]
+
+      # Specs tagged `:discourse` read files from a Discourse install (the
+      # markdown engine is built from core's sources) but don't boot Rails.
+      config.filter_run_excluding(:discourse) unless discourse_root
     end
   end
 
@@ -52,14 +60,15 @@ module MigrationsSpecSetup
   # config/initializers/000-zeitwerk.rb) relative to the working directory, so
   # boot the host harness with the cwd at the application root — the same way the
   # `disco` binary does before loading the Rails environment.
-  def self.boot_rails(spec_dir)
+  def self.boot_rails(rails_root)
+    abort "MIGRATIONS_RAILS=1 needs the plugin inside a Discourse install" unless rails_root
+
     # A dev container may default RAILS_ENV to development, and `rails_helper`
     # only fills it in when unset. Booting anything but test leaves the test
     # gem group unrequired, which surfaces much later as a missing constant
     # from a support file rather than as a wrong-environment error.
     ENV["RAILS_ENV"] = "test"
 
-    rails_root = File.expand_path("../../..", spec_dir)
     RSpec.configuration.files_to_run
     Dir.chdir(rails_root) do
       require File.join(rails_root, "spec", "rails_helper")

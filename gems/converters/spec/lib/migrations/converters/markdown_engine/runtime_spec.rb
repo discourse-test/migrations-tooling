@@ -6,14 +6,8 @@ RSpec.describe Migrations::Converters::MarkdownEngine do
   let(:context) { MiniRacer::Context.new }
 
   before do
-    root = Migrations::Converters::MarkdownEngine.discourse_root
     context.eval(
-      File.read(
-        File.join(
-          root,
-          "migrations/converters/lib/migrations/converters/markdown_engine/runtime.js",
-        ),
-      ),
+      File.read(File.join(Migrations::Converters.converters_path, "markdown_engine/runtime.js")),
     )
     context.eval(<<~JS)
       __scanConfig = { categorySlugs: {}, tagNames: { "κοσμος": true, "κοσμοσ": true } };

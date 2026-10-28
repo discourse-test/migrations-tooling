@@ -25,30 +25,19 @@ module Migrations
     @root_path ||= File.expand_path("..", __dir__)
   end
 
-  # Root of the host Discourse application (the repository root). Used to lazily
-  # boot Rails and to discover private converters.
-  def self.host_app_root
-    @host_app_root ||= File.expand_path("../../..", __dir__)
+  class DiscourseNotFoundError < StandardError
+    include DiscourseDisco::CLI::PresentableError
   end
 
-  def self.load_rails_environment(quiet: false)
-    message = "Loading Rails environment..."
-    print message if !quiet
+  class << self
+    # Root of the Discourse install the tooling runs in, set by the launcher.
+    # Nil when the tooling runs on its own.
+    attr_accessor :host_app_root
+  end
 
-    rails_root = host_app_root
-    Dir.chdir(rails_root) do
-      ENV["DISCOURSE_DEV_ALLOW_HTTPS"] = "1" # suppress warning
-      require File.join(rails_root, "config/environment")
-    rescue LoadError => e
-      $stderr.puts e.message
-      raise
-    end
-
-    if !quiet
-      print "\r"
-      print " " * message.length
-      print "\r"
-    end
+  def self.host_app_root!
+    host_app_root ||
+      raise(DiscourseNotFoundError, "This needs a Discourse install. Run it inside Discourse.")
   end
 
   def self.loader

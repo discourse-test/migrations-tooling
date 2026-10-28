@@ -25,7 +25,6 @@ module Migrations
 
           importer_dir = File.join(__dir__, "importer")
           loader.push_dir(importer_dir, namespace: Importer)
-          loader.ignore(File.join(importer_dir, "register.rb"))
           configure_collapses(loader, importer_dir)
 
           loader

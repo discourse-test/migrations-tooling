@@ -12,7 +12,7 @@ require "migrations-converters"
 # rows, so a recorder-side mistake — a wrong `url_offset`, a missing
 # `original_markdown`, a token minted but never written — cannot show up there.
 # It shows up here, because the rows come from a real extraction.
-RSpec.describe "markdown extraction round trip" do
+RSpec.describe "markdown extraction round trip", :discourse do
   include_context "with extraction round trip"
 
   let(:fixtures) { ExtractionRoundTrip.round_trip_bodies }

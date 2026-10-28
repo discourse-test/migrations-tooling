@@ -21,7 +21,7 @@ RSpec.describe Migrations::Converters::Discourse::Converter do
       ).twice
     end
 
-    context "for the Posts step" do
+    context "for the Posts step", :discourse do
       let(:source_db) { instance_double(Migrations::Converters::Adapter::Postgres) }
 
       before do

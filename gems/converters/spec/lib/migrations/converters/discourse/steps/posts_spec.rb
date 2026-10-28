@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Migrations::Converters::Discourse::Posts do
+RSpec.describe Migrations::Converters::Discourse::Posts, :discourse do
   subject(:processor) { described_class.processor_class.new({}) }
 
   include_context "with intermediate database"

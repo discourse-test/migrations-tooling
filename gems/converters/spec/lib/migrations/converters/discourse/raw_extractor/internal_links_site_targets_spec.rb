@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Migrations::Converters::Discourse::RawExtractor do
+RSpec.describe Migrations::Converters::Discourse::RawExtractor, :discourse do
   include_context "with raw extractor"
 
   # An absolute URL on the source's own host whose path parses no route is still

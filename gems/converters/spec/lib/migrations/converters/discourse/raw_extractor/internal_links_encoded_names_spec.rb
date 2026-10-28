@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Migrations::Converters::Discourse::RawExtractor do
+RSpec.describe Migrations::Converters::Discourse::RawExtractor, :discourse do
   include_context "with raw extractor"
 
   # With `unicode_usernames` on, a username, group name or tag name holds

@@ -7,9 +7,7 @@ Gem::Specification.new do |s|
   s.authors = ["Discourse Team"]
   s.required_ruby_version = ">= 3.4"
 
-  s.files = Dir["lib/**/*", "db/**/*", "config/**/*", "bin/*"]
-  s.bindir = "bin"
-  s.executables = ["disco"]
+  s.files = Dir["lib/**/*", "db/**/*", "config/**/*"]
 
   s.add_dependency "activesupport"
   s.add_dependency "colored2"

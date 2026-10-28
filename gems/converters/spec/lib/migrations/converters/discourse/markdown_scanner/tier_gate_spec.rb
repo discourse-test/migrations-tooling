@@ -177,7 +177,7 @@ RSpec.describe Migrations::Converters::Discourse::MarkdownScanner::TierGate do
     end
   end
 
-  describe "the named-entity allowlist" do
+  describe "the named-entity allowlist", :discourse do
     # The gate's allowlist claims these names can never spell a construct.
     # markdown-it's own name table ships only as an encoded trie, so the claim
     # is verified against the decoder of the engine the scanner runs: every

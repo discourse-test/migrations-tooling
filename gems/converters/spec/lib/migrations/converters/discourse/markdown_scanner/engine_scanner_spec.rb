@@ -4,7 +4,7 @@
 # so the constructs come out of the actual discourse-markdown-it parse and the
 # positions out of count matching. The engine context needs no Rails, so
 # this runs in the isolated suite.
-RSpec.describe Migrations::Converters::Discourse::RawExtractor do
+RSpec.describe Migrations::Converters::Discourse::RawExtractor, :discourse do
   include_context "with raw extractor"
 
   let(:custom_emoji_names) { %w[parrot] }

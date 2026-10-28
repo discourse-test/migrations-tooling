@@ -12,7 +12,7 @@
 # wall-clock scaling are reported by the measurement tooling on the
 # `mt/markdown-validation-tooling` branch, where sizes, ratios and GC state
 # can be reported instead of asserted against CI noise.
-RSpec.describe Migrations::Converters::Discourse::RawExtractor do
+RSpec.describe Migrations::Converters::Discourse::RawExtractor, :discourse do
   include_context "with raw extractor"
 
   let(:fragments) do

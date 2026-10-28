@@ -7,15 +7,27 @@
 #
 #   cd gems/importer && ../../bin/rspec spec/lib/migrations/importer/step_spec.rb
 #
-# Specs tagged `:rails` additionally need MIGRATIONS_RAILS=1.
+# Specs tagged `:rails` additionally need MIGRATIONS_RAILS=1 and the plugin
+# inside a Discourse install. They run with core's Gemfile, whose Rails boot
+# activates the plugin's gems.
 
-ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
+require_relative "../disco/environment"
 
-gems_root = File.expand_path("../gems", __dir__)
+gems_root = File.join(MigrationsTooling::PLUGIN_ROOT, "gems")
 gem_dirs = %w[core tooling converters importer].map { |gem| File.join(gems_root, gem) }
 
 unless gem_dirs.any? { |dir| Dir.pwd == dir || Dir.pwd.start_with?("#{dir}/") }
   abort "Run this from a gem directory, e.g. `cd gems/importer && ../../bin/rspec`"
+end
+
+if ENV["MIGRATIONS_RAILS"]
+  discourse_root = MigrationsTooling.discourse_root
+  abort "MIGRATIONS_RAILS=1 needs the plugin inside a Discourse install" unless discourse_root
+
+  ENV["BUNDLE_GEMFILE"] = File.join(discourse_root, "Gemfile")
+  ENV["LOAD_PLUGINS"] = "1"
+else
+  ENV["BUNDLE_GEMFILE"] ||= File.join(MigrationsTooling::PLUGIN_ROOT, "Gemfile")
 end
 
 exec "bundle", "exec", "rspec", *ARGV
