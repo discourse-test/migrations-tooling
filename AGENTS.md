@@ -24,7 +24,7 @@ README (conventions, gotchas, do/don't notes for automated contributors).
 - **Samovar positionals are never required.** Don't use `one :x, required: true` —
   it raises during parsing, before `call` runs, which breaks the `-h/--help`
   handling. Leave positionals optional and validate them at the top of `call` with
-  `require_positional!` (see `Migrations::CLI::Command`); it raises a presentable
+  `require_positional!` (see `DiscourseDisco::CLI::Command`); it raises a presentable
   error, so the user gets a clean message instead of a backtrace.
 
 - **Don't give command groups a `-h/--help` option.** The option hoisting in

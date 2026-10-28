@@ -4,12 +4,12 @@ The schema DSL defines the structure of a database used during migrations. It ma
 tables to a schema, letting you control which columns to include, rename columns, override types,
 add synthetic columns, and define enums.
 
-Config files live in `migrations/tooling/config/schema/<database>/` (e.g. `intermediate_db`).
+Config files live in `gems/tooling/config/schema/<database>/` (e.g. `intermediate_db`).
 
 ## File layout
 
 ```
-migrations/tooling/config/schema/intermediate_db/
+gems/tooling/config/schema/intermediate_db/
   config.rb          # Output paths and namespaces
   conventions.rb     # Global column conventions (renames, type overrides)
   ignored.rb         # Tables and plugins to exclude
@@ -42,9 +42,9 @@ database, that the committed generated files match what generation produces
 (without touching the working tree), that the reference converter covers every
 column, and that no converter writes columns or models that don't exist in the
 schema. It
-exits non-zero on the first failing check — CI runs exactly this command, so a
-clean local run means a green CI check. `disco check schema` and
-`disco check coverage` run the respective subsets.
+exits non-zero on the first failing check. `disco check schema` and
+`disco check coverage` run the respective subsets. The schema commands and the
+schema checks read the Discourse database, so they only run inside Discourse.
 
 To see which columns a single converter writes (with per-model `N/M` coverage),
 use `disco check coverage --inspect <converter>`. This is a read-only report for
