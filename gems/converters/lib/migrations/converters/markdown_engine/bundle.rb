@@ -143,8 +143,11 @@ module Migrations
           program =
             "require \"migrations-converters\"; " \
               "Migrations::Converters::MarkdownEngine::Bundle.build_and_write(ARGV[0], ARGV[1])"
+          # Inside Discourse the plugin's gems are activated without Bundler, so a
+          # plain `ruby` wouldn't find them. The parent's load path has them.
+          env = { "RUBYLIB" => $LOAD_PATH.join(File::PATH_SEPARATOR) }
           _stdout, stderr, status =
-            Open3.capture3(RbConfig.ruby, "-e", program, root, cache_file, chdir: root)
+            Open3.capture3(env, RbConfig.ruby, "-e", program, root, cache_file, chdir: root)
           return if status.success?
 
           raise BuildError, "bundle build subprocess failed: #{stderr.strip}"
