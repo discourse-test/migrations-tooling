@@ -4,10 +4,9 @@
 # concurrent converter writes rows in no fixed order, so we sort each table's
 # rows and compare a digest instead of diffing the files.
 #
-# Usage (from the repo root, under the migrations bundle):
+# Usage (from the plugin root):
 #
-#   cd migrations/core
-#   bundle exec ruby ../tooling/scripts/compare_intermediate_dbs.rb \
+#   bundle exec ruby gems/tooling/scripts/compare_intermediate_dbs.rb \
 #     /path/to/sequential.db /path/to/concurrent.db
 
 require "extralite"

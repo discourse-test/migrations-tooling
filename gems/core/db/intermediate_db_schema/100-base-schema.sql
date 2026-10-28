@@ -1,6 +1,6 @@
 -- This file is auto-generated from the IntermediateDB schema. To make changes,
--- update the configuration files in "migrations/tooling/config/schema/" and then run
--- `migrations/bin/disco schema generate` to regenerate this file.
+-- update the configuration files in "gems/tooling/config/schema/" and then run
+-- `bin/disco schema generate` to regenerate this file.
 
 CREATE TABLE badge_groupings
 (
