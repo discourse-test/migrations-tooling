@@ -8,6 +8,7 @@ gem "migrations-converters", path: "gems/converters"
 gem "migrations-importer", path: "gems/importer"
 
 source "https://rubygems.pkg.github.com/discourse-test" do
+  gem "discourse-disco-cli"
   gem "mini_progress"
 end
 

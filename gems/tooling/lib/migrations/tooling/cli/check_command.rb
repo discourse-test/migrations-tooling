@@ -9,7 +9,7 @@ module Migrations
       # Without a subcommand it runs every check in dependency order and
       # stops at the first failing link, since everything downstream of a
       # stale link would report against stale inputs.
-      class CheckCommand < Migrations::CLI::Command
+      class CheckCommand < DiscourseDisco::CLI::Command
         self.description = "Run all schema and converter checks"
 
         # NOTE: no group-level `-h/--help` option — the option hoisting in
@@ -37,7 +37,7 @@ module Migrations
           # The schema checks need Rails. This command itself doesn't declare
           # `requires_rails!` so that `check coverage` and `--help` stay
           # Rails-free; the all-checks mode boots it here instead.
-          Migrations.load_rails_environment(quiet: true)
+          DiscourseDisco::CLI.boot_rails!(DiscourseDisco::CLI::Bootstrap.command_line(self))
 
           puts "Checking schema config and generated files...".bold
           unless CheckCommands::SchemaCommand.new([]).run

@@ -65,4 +65,20 @@ RSpec.describe Migrations::ClassFilter do
       expect(result).to eq([base, middle, top])
     end
   end
+
+  describe Migrations::ClassFilter::UnknownClassNamesError do
+    describe "#present" do
+      it "suggests the closest step name" do
+        error = described_class.new(["usres"], %w[topics users])
+
+        expect { error.present }.to output(/Unknown step 'usres'.*Did you mean: users/m).to_stdout
+      end
+
+      it "lists all step names when there is no suggestion" do
+        error = described_class.new(["xyz"], %w[topics users])
+
+        expect { error.present }.to output(/Available steps are: .*topics, users/).to_stdout
+      end
+    end
+  end
 end

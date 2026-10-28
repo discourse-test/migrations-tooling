@@ -15,11 +15,11 @@ Gem::Specification.new do |s|
   s.add_dependency "colored2"
   s.add_dependency "concurrent-ruby"
   s.add_dependency "digest-xxhash"
+  s.add_dependency "discourse-disco-cli"
   s.add_dependency "extralite-bundle", ">= 3.1"
   s.add_dependency "i18n"
   s.add_dependency "json"
   s.add_dependency "lru_redux"
   s.add_dependency "mini_progress"
-  s.add_dependency "samovar"
   s.add_dependency "zeitwerk"
 end

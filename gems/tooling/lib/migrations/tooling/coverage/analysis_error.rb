@@ -8,7 +8,7 @@ module Migrations
       # non-literal keyword. Such call sites can't be verified statically, so the
       # analyser fails loudly rather than silently under-reporting coverage.
       class AnalysisError < StandardError
-        include Migrations::CLI::PresentableError
+        include DiscourseDisco::CLI::PresentableError
       end
     end
   end

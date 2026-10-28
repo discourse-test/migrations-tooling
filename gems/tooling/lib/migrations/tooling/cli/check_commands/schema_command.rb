@@ -83,7 +83,7 @@ module Migrations
             result.missing.each { |path| puts "  + #{path} (not committed)".green }
             result.stale.each { |path| puts "  - #{path} (no longer generated)".red }
             puts
-            puts "Run `#{Migrations::CLI::BIN} schema generate` and commit the result."
+            puts "Run `#{DiscourseDisco::CLI.program_name} schema generate` and commit the result."
             false
           end
         end

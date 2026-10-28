@@ -2,6 +2,7 @@
 
 require "active_support"
 require "active_support/core_ext"
+require "discourse_disco_cli"
 require "mini_progress"
 require "zeitwerk"
 
@@ -65,7 +66,6 @@ module Migrations
   def self.configure_inflections(loader)
     loader.inflector.inflect(
       {
-        "cli" => "CLI",
         "id" => "ID",
         "files_db" => "FilesDB",
         "intermediate_db" => "IntermediateDB",

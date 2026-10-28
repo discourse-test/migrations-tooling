@@ -26,7 +26,7 @@ module Migrations
             puts
             puts "Next steps:"
             puts "  1. Edit the file to configure columns"
-            puts "  2. Run '#{Migrations::CLI::BIN} check schema'"
+            puts "  2. Run '#{DiscourseDisco::CLI.program_name} check schema'"
           end
         end
       end

@@ -32,11 +32,11 @@ module Migrations
       EnumDefinition = Data.define(:name, :values, :datatype)
 
       class ConfigError < StandardError
-        include Migrations::CLI::PresentableError
+        include DiscourseDisco::CLI::PresentableError
       end
 
       class GenerationError < StandardError
-        include Migrations::CLI::PresentableError
+        include DiscourseDisco::CLI::PresentableError
       end
 
       # --- DSL Registration Methods ---

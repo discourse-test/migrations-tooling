@@ -3,12 +3,31 @@
 module Migrations
   class ClassFilter
     class UnknownClassNamesError < StandardError
+      include DiscourseDisco::CLI::PresentableError
+
       attr_reader :missing_names, :available_names
 
       def initialize(missing_names, available_names)
         @missing_names = missing_names.sort
         @available_names = available_names.sort
         super("Unknown class names: #{missing_names.join(", ")}")
+      end
+
+      def present
+        all_suggestions_found = true
+
+        missing_names.each do |missing_name|
+          suggestions =
+            DidYouMean::SpellChecker.new(dictionary: available_names).correct(missing_name)
+          puts "Unknown step '#{missing_name}'".red
+          if suggestions.any?
+            puts "Did you mean: #{suggestions.join(", ")}".yellow
+          else
+            all_suggestions_found = false
+          end
+        end
+
+        puts "Available steps are: ".yellow + available_names.join(", ") if !all_suggestions_found
       end
     end
 

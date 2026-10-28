@@ -11,7 +11,7 @@ module Migrations
     # The scheduler hands it the raw outcomes; the human-facing summary — and its
     # translations — are built here, where the message belongs.
     class ConvertError < StandardError
-      include CLI::PresentableError
+      include DiscourseDisco::CLI::PresentableError
 
       # @param failures [Hash{Class<Step> => StandardError, nil}] failed steps and
       #   the error each raised

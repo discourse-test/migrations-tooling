@@ -43,7 +43,7 @@ module Migrations
         ].freeze
 
         class Error < StandardError
-          include Migrations::CLI::PresentableError
+          include DiscourseDisco::CLI::PresentableError
         end
 
         def self.run

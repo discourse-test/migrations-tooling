@@ -3,7 +3,7 @@
 module Migrations
   module Importer
     module CLI
-      class UploadCommand < Migrations::CLI::Command
+      class UploadCommand < DiscourseDisco::CLI::Command
         requires_rails!
 
         self.description = "Import media uploads referenced by the IntermediateDB"

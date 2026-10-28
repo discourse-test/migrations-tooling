@@ -92,12 +92,12 @@ module Migrations
             commands = []
 
             if result.unconfigured_tables.any?
-              commands << "#{Migrations::CLI::BIN} schema add <table>"
-              commands << "#{Migrations::CLI::BIN} schema ignore <table> [--reason \"...\"]"
+              commands << "#{DiscourseDisco::CLI.program_name} schema add <table>"
+              commands << "#{DiscourseDisco::CLI.program_name} schema ignore <table> [--reason \"...\"]"
             end
 
             if result.stale_ignored_tables.any?
-              commands << "#{Migrations::CLI::BIN} schema unignore <table>"
+              commands << "#{DiscourseDisco::CLI.program_name} schema unignore <table>"
             end
 
             commands

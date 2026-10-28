@@ -3,9 +3,9 @@
 module Migrations
   module Converters
     module CLI
-      class ConvertCommand < Migrations::CLI::Command
+      class ConvertCommand < DiscourseDisco::CLI::Command
         class Error < StandardError
-          include Migrations::CLI::PresentableError
+          include DiscourseDisco::CLI::PresentableError
         end
 
         self.description = "Convert a source dump into the IntermediateDB"
@@ -17,11 +17,11 @@ module Migrations
           option "--only <steps>",
                  "Run only the specified steps (comma-separated).",
                  default: [],
-                 type: STEP_LIST
+                 type: StepList
           option "--skip <steps>",
                  "Skip the specified steps (comma-separated).",
                  default: [],
-                 type: STEP_LIST
+                 type: StepList
           option "--max-parallel-steps <count>",
                  "Maximum number of worker processes (forks) running at the same time. " \
                    "This caps forks, not steps: a partitioned step runs on several forks " \

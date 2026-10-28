@@ -8,7 +8,7 @@ module Migrations
       module SchemaCommands
         # Shared behaviour for `disco schema <sub>` commands: the `--db` option,
         # database validation, and access to the schema DSL module.
-        class BaseCommand < Migrations::CLI::Command
+        class BaseCommand < DiscourseDisco::CLI::Command
           requires_rails!
 
           def schema

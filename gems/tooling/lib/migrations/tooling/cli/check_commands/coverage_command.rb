@@ -12,11 +12,11 @@ module Migrations
         # `--inspect <converter>` switches from the gate to a read-only report of
         # the columns a single converter writes, with per-model N/M coverage. It
         # is a debugging aid, not a gate, so it never changes the exit status.
-        class CoverageCommand < Migrations::CLI::Command
+        class CoverageCommand < DiscourseDisco::CLI::Command
           self.description = "Check converter coverage of the IntermediateDB schema"
 
           class Error < StandardError
-            include Migrations::CLI::PresentableError
+            include DiscourseDisco::CLI::PresentableError
           end
 
           options do

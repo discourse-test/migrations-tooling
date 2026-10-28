@@ -3,7 +3,7 @@
 module Migrations
   module Importer
     module CLI
-      class ImportCommand < Migrations::CLI::Command
+      class ImportCommand < DiscourseDisco::CLI::Command
         requires_rails!
 
         self.description = "Import the IntermediateDB into a Discourse database"
@@ -14,11 +14,11 @@ module Migrations
           option "--only <steps>",
                  "Run only the specified steps (comma-separated).",
                  default: [],
-                 type: STEP_LIST
+                 type: StepList
           option "--skip <steps>",
                  "Skip the specified steps (comma-separated).",
                  default: [],
-                 type: STEP_LIST
+                 type: StepList
         end
 
         def call

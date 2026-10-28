@@ -23,7 +23,7 @@ require "migrations-importer"
 Migrations.enable_i18n
 Migrations.apply_global_config
 
-# Each gem registers its top-level commands into Migrations::CLI::Registry.
+# Each gem registers its top-level commands into DiscourseDisco::CLI::Registry.
 require "migrations/tooling/register"
 require "migrations/converters/register"
 require "migrations/importer/register"
@@ -35,5 +35,12 @@ else
 end
 
 Dir.chdir(Migrations.host_app_root) do
-  Migrations::CLI::ExceptionHandler.handle_and_exit { Migrations::CLI::Bootstrap.run(ARGV) }
+  DiscourseDisco::CLI::ExceptionHandler.handle_and_exit do
+    DiscourseDisco::CLI::Bootstrap.run(
+      ARGV,
+      program_name: "bin/disco",
+      description: "Discourse migration tools",
+      boot_rails: -> { Migrations.load_rails_environment(quiet: true) },
+    )
+  end
 end
