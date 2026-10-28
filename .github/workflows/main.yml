@@ -6,6 +6,10 @@ on:
       - main
   pull_request:
 
+# Two of the gems come from GitHub Packages, which needs a token even for reading.
+env:
+  BUNDLE_RUBYGEMS__PKG__GITHUB__COM: "x-access-token:${{ secrets.PACKAGES_TOKEN }}"
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -27,3 +31,32 @@ jobs:
 
       - name: Check Ruby formatting with Syntax Tree
         run: bundle exec stree check Gemfile "**/*.rb" "**/*.rake"
+
+  test:
+    runs-on: ubuntu-latest
+    name: Specs (${{ matrix.gem }})
+    strategy:
+      fail-fast: false
+      matrix:
+        gem:
+          - core
+          - tooling
+          - converters
+          - importer
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '4.0'
+          bundler-cache: true
+
+      # Specs tagged :rails or :discourse need a Discourse install and are skipped here.
+      - name: Run specs
+        working-directory: gems/${{ matrix.gem }}
+        run: ../../bin/rspec
