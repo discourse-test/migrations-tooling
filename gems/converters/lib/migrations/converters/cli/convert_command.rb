@@ -48,11 +48,15 @@ module Migrations
             ).downcase
           validate_converter_type!(type)
 
+          converter = "migrations/converters/#{type}/converter".camelize.constantize
+          if converter.requires_discourse? && Migrations.host_app_root.nil?
+            raise Error, "The #{type} converter needs a Discourse install. Run it inside Discourse."
+          end
+
           settings = load_settings(type)
 
           Database.delete_database(settings[:intermediate_db][:path]) if @options[:reset]
 
-          converter = "migrations/converters/#{type}/converter".camelize.constantize
           converter.new(settings).run(
             only_steps: @options[:only],
             skip_steps: @options[:skip],

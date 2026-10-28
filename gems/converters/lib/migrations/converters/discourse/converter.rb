@@ -6,6 +6,9 @@ module Migrations
   module Converters
     module Discourse
       class Converter < Conversion::Base
+        # The markdown engine is built from core's sources.
+        requires_discourse!
+
         POSTS_ARGS_LOCK = Mutex.new
         private_constant :POSTS_ARGS_LOCK
 

@@ -5,6 +5,17 @@ module Migrations
     class Base
       attr_accessor :settings
 
+      # For converters that read files from a Discourse install, so that
+      # `convert` can refuse them when the tooling runs on its own.
+      def self.requires_discourse!
+        @requires_discourse = true
+      end
+
+      def self.requires_discourse?
+        return true if @requires_discourse == true
+        superclass.respond_to?(:requires_discourse?) && superclass.requires_discourse?
+      end
+
       def initialize(settings)
         @settings = settings
       end

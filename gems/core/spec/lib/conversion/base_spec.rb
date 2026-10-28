@@ -142,4 +142,16 @@ RSpec.describe Migrations::Conversion::Base do
       expect(filtered).to eq([TemporaryConverterModule::Categories])
     end
   end
+
+  describe ".requires_discourse?" do
+    it "is false unless the converter declares it" do
+      expect(Class.new(described_class).requires_discourse?).to be(false)
+    end
+
+    it "is inherited by subclasses" do
+      converter = Class.new(described_class) { requires_discourse! }
+
+      expect(Class.new(converter).requires_discourse?).to be(true)
+    end
+  end
 end
