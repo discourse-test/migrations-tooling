@@ -102,7 +102,6 @@ module Migrations
           require "discourse_emojis"
           require "mini_racer"
           HostShims.install!(root)
-          # rubocop:disable Discourse/NoChdir
           Dir.chdir(root) do
             require_host_build_classes(root)
 
@@ -116,7 +115,6 @@ module Migrations
               File.delete(temp_file) if File.exist?(temp_file)
             end
           end
-          # rubocop:enable Discourse/NoChdir
         end
 
         # A missing file, a truncated or corrupt one, and valid JSON with the

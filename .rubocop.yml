@@ -1,4 +1,15 @@
-inherit_from: ../.rubocop.yml
+inherit_gem:
+  rubocop-discourse-base:
+    - stree-compat.yml
+    - rubocop-rspec.yml
+
+AllCops:
+  TargetRubyVersion: "3.4"
+  NewCops: enable
+
+# stree-compat.yml doesn't include the layout cops; Discourse enables this one.
+Layout/EmptyLineBetweenDefs:
+  Enabled: true
 
 Style/HashSyntax:
   EnforcedShorthandSyntax: always
@@ -12,13 +23,9 @@ Style/EndlessMethod:
 Style/Send:
   Enabled: true
 
-# Autocorrects `unless x.include?(…)` to ActiveSupport's `exclude?`, which exists
-# only on the types ActiveSupport patches. These gems pass around plain classes
-# carrying their own `include?` (CompactStringSet), so the rewrite turns working
-# code into a NoMethodError that lint still reports as clean. Dropping just that
-# pair is not possible — RuboCop merges a cop's hash parameters with the
-# inherited ones instead of replacing them — and the cop is `Safe: false`
-# anyway, so it is off here.
+# Autocorrects `unless x.include?(…)` to ActiveSupport's `exclude?`, which
+# exists only on the types ActiveSupport patches. The cop is `Safe: false`
+# anyway.
 Style/InvertibleUnlessCondition:
   Enabled: false
 
@@ -27,3 +34,30 @@ Style/InvertibleUnlessCondition:
 # and top-level (or stubbed) classes for test doubles.
 RSpec/LeakyConstantDeclaration:
   Enabled: true
+
+# Spec rules Discourse enables on top of rubocop-rspec.yml.
+RSpec/EmptyLineAfterExample:
+  Enabled: true
+
+RSpec/EmptyLineAfterExampleGroup:
+  Enabled: true
+
+RSpec/EmptyLineAfterFinalLet:
+  Enabled: true
+
+RSpec/EmptyLineAfterHook:
+  Enabled: true
+
+RSpec/ExampleWording:
+  Enabled: true
+
+RSpec/RepeatedDescription:
+  Enabled: true
+
+RSpec/RepeatedExampleGroupDescription:
+  Enabled: true
+
+# Integration specs cover a workflow, not one class.
+RSpec/DescribeClass:
+  Exclude:
+    - "**/spec/integration/**/*"

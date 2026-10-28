@@ -1,13 +1,16 @@
-!/db/**/*.sql
-!/spec/support/fixtures/**/*.sql
-
 # Local settings overrides (may hold credentials); the committed files next to
 # them are the templates.
-/importer/config/upload.local.yml
-/converters/lib/migrations/converters/**/settings.local.yml
+/gems/importer/config/upload.local.yml
+/gems/converters/lib/migrations/converters/**/settings.local.yml
 
-# converters within this directory should be ignored
+# Private converters live here and are never committed.
 /private/
 
+/.bundle/
+/coverage/
 /tmp/
-
+/vendor/
+.rspec_status
+.ruby-version
+/.idea/
+/.silo.local.yml

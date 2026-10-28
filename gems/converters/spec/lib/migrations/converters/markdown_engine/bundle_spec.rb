@@ -34,7 +34,6 @@ RSpec.describe Migrations::Converters::MarkdownEngine::Bundle do
     loaded = nil
     Dir.mktmpdir do |dir|
       Dir.chdir(dir) { loaded = Thread.new { described_class.load_or_build }.value }
-      # rubocop:enable Discourse/NoChdir
     end
 
     expect(loaded.entries.size).to eq(bundle.entries.size)

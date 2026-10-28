@@ -34,7 +34,6 @@ module Migrations
     print message if !quiet
 
     rails_root = host_app_root
-    # rubocop:disable Discourse/NoChdir
     Dir.chdir(rails_root) do
       ENV["DISCOURSE_DEV_ALLOW_HTTPS"] = "1" # suppress warning
       require File.join(rails_root, "config/environment")
@@ -42,7 +41,6 @@ module Migrations
       $stderr.puts e.message
       raise
     end
-    # rubocop:enable Discourse/NoChdir
 
     if !quiet
       print "\r"

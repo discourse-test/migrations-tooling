@@ -34,8 +34,6 @@ else
   warn "WARNING: Performance degraded: RubyVM::YJIT is not available".yellow
 end
 
-# rubocop:disable Discourse/NoChdir
 Dir.chdir(Migrations.host_app_root) do
   Migrations::CLI::ExceptionHandler.handle_and_exit { Migrations::CLI::Bootstrap.run(ARGV) }
 end
-# rubocop:enable Discourse/NoChdir
